@@ -11,6 +11,7 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/resource-timeline": "^6.1.10",
     "@fullcalendar/vue3": "^6.1.10",
+    "@splinetool/runtime": "^0.9.518",
     "@vueuse/core": "^10.6.1",
     "dayjs": "^1.11.10",
     "vue": "^3.3.8",
