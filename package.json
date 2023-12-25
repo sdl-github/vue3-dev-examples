@@ -11,9 +11,12 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/resource-timeline": "^6.1.10",
     "@fullcalendar/vue3": "^6.1.10",
+    "@kousum/semi-ui-vue": "^0.5.7",
     "@splinetool/runtime": "^0.9.518",
     "@vueuse/core": "^10.6.1",
     "dayjs": "^1.11.10",
+    "dhtmlx-gantt": "^8.0.6",
+    "spline-vue": "^0.1.3",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5",
     "zh-cn": "link:@fullcalendar/core/locales/zh-cn"
