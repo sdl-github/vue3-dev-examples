@@ -1,61 +1,83 @@
 <template>
-  <div>
-    <a-form :model="formState" :rules="rules">
-      <a-form-item label="Username" v-bind="validateInfos.username">
-        <a-input v-model:value="formState.username" />
-      </a-form-item>
-
-      <a-form-item label="arr" v-bind="validateInfos['data.arr']">
-        <a-select :value="formState.data.arr" mode="multiple" @change="handleChange">
-          <a-select-option value="jack">Jack</a-select-option>
-          <a-select-option value="lucy">Lucy</a-select-option>
-          <a-select-option value="Yiminghe">yiminghe</a-select-option>
-        </a-select>
-      </a-form-item>
-      <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-        <a-button @click="submit" type="primary">Submit</a-button>
-      </a-form-item>
-    </a-form>
+  <div class="carousel">
+    <a-carousel :dots="false" ref='carouselRef' :after-change="onChange">
+      <div v-for="item in data" class="item">
+        {{ item.title }}
+      </div>
+    </a-carousel>
+    <div class="carousel-page">
+      <CarouselPage :total="data.length" :current="current" @goTo="handleGoTo"/>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Form } from 'ant-design-vue';
+import CarouselPage from '~/components/CarouselPage.vue';
 
-const rules = {
-  username: [
-    { required: true, message: 'Please input your username!' }
-  ],
-  'data.arr': [
-    { required: true, message: 'Please select your favorite color!' }
-  ]
-}
-const formState = ref({
-  username: '',
-  data: {
-    arr: []
-  }
+const current = ref(0)
+
+const data = new Array(10).fill(0).map((_, index) => ({
+  key: index + 1,
+  title: `title ${index + 1}`,
+  content: `content ${index + 1}`,
+}))
+
+let timer: NodeJS.Timeout | null = null
+
+onMounted(() => {
+  start()
 })
-const useForm = Form.useForm;
-const { resetFields, validate, validateInfos } = useForm(
-  formState,
-  reactive(rules),
-);
-function handleChange(e: any) {
-  console.log(e);
-  formState.value.data.arr = e
+
+onBeforeUnmount(() => {
+  timer && clearInterval(timer)
+})
+
+const carouselRef = ref()
+
+watch(current, () => {
+  carouselRef?.value.goTo(current.value, true)
+})
+
+function start() {
+  timer = setInterval(() => {
+    current.value++
+    if (current.value > data.length - 1) {
+      current.value = 0
+    }
+  }, 2000)
 }
 
-function submit() {
-  validate()
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log('error', err);
-    });
+
+function handleGoTo(no:number) {
+  console.log(no);
+  current.value = no - 1
+}
+
+function onChange() {
 
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.carousel {
+  width: 600px;
+  position: relative;
+
+  .carousel-page {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 30px;
+    background: #1C120E;
+  }
+}
+
+.item {
+  height: 300px;
+  background: #364d79;
+  color: white;
+  font-size: 32px;
+  text-align: center;
+  padding-top: 100px;
+}
+</style>
