@@ -14,6 +14,7 @@
     "@kousum/semi-ui-vue": "^0.5.7",
     "@splinetool/runtime": "^0.9.518",
     "@vueuse/core": "^10.6.1",
+    "ant-design-vue": "3.2.20",
     "dayjs": "^1.11.10",
     "dhtmlx-gantt": "^8.0.6",
     "spline-vue": "^0.1.3",
